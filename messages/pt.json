@@ -1,0 +1,104 @@
+{
+  "Navigation": {
+    "home": "Início",
+    "blocos": "Blocos",
+    "events": "Eventos",
+    "cities": "Cidades",
+    "search": "Buscar",
+    "profile": "Perfil",
+    "login": "Entrar",
+    "register": "Cadastrar"
+  },
+  "Homepage": {
+    "title": "Ministério do Bloco",
+    "subtitle": "Descubra os melhores blocos de carnaval do Brasil",
+    "heroTitle": "Descubra Blocos de Carnaval",
+    "heroSubtitle": "Encontre os melhores blocos, eventos e experiências de carnaval em todo o Brasil",
+    "searchPlaceholder": "Busque por blocos, eventos ou cidades...",
+    "featuredBlocos": "Blocos em Destaque",
+    "upcomingEvents": "Próximos Eventos",
+    "popularCities": "Cidades Populares"
+  },
+  "Blocos": {
+    "title": "Blocos de Carnaval",
+    "follow": "Seguir",
+    "following": "Seguindo",
+    "followers": "seguidores",
+    "events": "eventos",
+    "description": "Descrição",
+    "socialLinks": "Redes Sociais",
+    "musicLinks": "Música",
+    "upcomingEvents": "Próximos Eventos",
+    "noEvents": "Nenhum evento programado"
+  },
+  "Events": {
+    "title": "Eventos",
+    "types": {
+      "parade": "Desfile",
+      "rehearsal": "Ensaio",
+      "party": "Festa",
+      "workshop": "Oficina"
+    },
+    "saveToAgenda": "Salvar na Agenda",
+    "addToCalendar": "Adicionar ao Calendário",
+    "getDirections": "Como Chegar",
+    "shareEvent": "Compartilhar Evento",
+    "eventDetails": "Detalhes do Evento",
+    "when": "Quando",
+    "where": "Onde",
+    "bloco": "Bloco"
+  },
+  "Cities": {
+    "selectCity": "Selecionar Cidade",
+    "allCities": "Todas as cidades",
+    "carnivalGuide": "Guia do Carnaval"
+  },
+  "Common": {
+    "loading": "Carregando...",
+    "error": "Erro",
+    "retry": "Tentar novamente",
+    "save": "Salvar",
+    "cancel": "Cancelar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "share": "Compartilhar"
+  },
+  "Header": {
+    "search": "Buscar"
+  },
+  "Footer": {
+    "blocos": "Blocos",
+    "events": "Eventos",
+    "about": "Sobre"
+  },
+  "Search": {
+    "placeholder": "Buscar blocos, cidades ou eventos...",
+    "filters": "Filtros",
+    "clearAll": "Limpar Tudo",
+    "city": "Cidade",
+    "selectCity": "Selecionar cidade",
+    "allCities": "Todas as cidades",
+    "eventType": "Tipo de Evento",
+    "selectEventType": "Selecionar tipo",
+    "allEventTypes": "Todos os tipos",
+    "parade": "Desfile",
+    "rehearsal": "Ensaio",
+    "party": "Festa",
+    "socialMedia": "Redes Sociais",
+    "sortBy": "Ordenar por",
+    "relevance": "Relevância",
+    "name": "Nome",
+    "popularity": "Popularidade",
+    "searching": "Buscando...",
+    "searchError": "Erro na busca. Tente novamente.",
+    "resultsFound": "{count} resultados encontrados",
+    "noResults": "Nenhum resultado encontrado",
+    "clearFilters": "Limpar filtros"
+  },
+  "Map": {
+    "loading": "Carregando mapa...",
+    "loadError": "Erro ao carregar mapa",
+    "blocoLocation": "Localização do Bloco",
+    "yourLocation": "Sua Localização"
+  }
+}

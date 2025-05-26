@@ -1,0 +1,73 @@
+{
+  "Navigation": {
+    "home": "Home",
+    "blocos": "Blocos",
+    "events": "Events",
+    "cities": "Cities",
+    "profile": "Profile",
+    "login": "Login",
+    "register": "Sign Up"
+  },
+  "Homepage": {
+    "title": "Ministério do Bloco",
+    "subtitle": "Discover the best carnival blocos in Brazil",
+    "heroTitle": "Discover Carnival Blocos",
+    "heroSubtitle": "Find the best blocos, events and carnival experiences throughout Brazil",
+    "searchPlaceholder": "Search for blocos, events or cities...",
+    "featuredBlocos": "Featured Blocos",
+    "upcomingEvents": "Upcoming Events",
+    "popularCities": "Popular Cities"
+  },
+  "Blocos": {
+    "title": "Carnival Blocos",
+    "follow": "Follow",
+    "following": "Following",
+    "followers": "followers",
+    "events": "events",
+    "description": "Description",
+    "socialLinks": "Social Media",
+    "musicLinks": "Music",
+    "upcomingEvents": "Upcoming Events",
+    "noEvents": "No scheduled events"
+  },
+  "Events": {
+    "title": "Events",
+    "types": {
+      "parade": "Parade",
+      "rehearsal": "Rehearsal",
+      "party": "Party",
+      "workshop": "Workshop"
+    },
+    "saveToAgenda": "Save to Agenda",
+    "addToCalendar": "Add to Calendar",
+    "getDirections": "Get Directions",
+    "shareEvent": "Share Event",
+    "eventDetails": "Event Details",
+    "when": "When",
+    "where": "Where",
+    "bloco": "Bloco"
+  },
+  "Cities": {
+    "selectCity": "Select City",
+    "allCities": "All cities",
+    "carnivalGuide": "Carnival Guide"
+  },
+  "Common": {
+    "loading": "Loading...",
+    "error": "Error",
+    "retry": "Try again",
+    "save": "Save",
+    "cancel": "Cancel",
+    "search": "Search",
+    "filter": "Filter",
+    "share": "Share"
+  },
+  "Header": {
+    "search": "Search"
+  },
+  "Footer": {
+    "blocos": "Blocos",
+    "events": "Events",
+    "about": "About"
+  }
+}

@@ -1,0 +1,767 @@
+---
+description: 
+globs: 
+alwaysApply: true
+---
+# **AI Guidance File (.cursorrules)**
+
+## **Ministério do Bloco - LLM IDE Development Guidelines**
+
+---
+
+## **Project Context & Overview**
+
+```yaml
+# Ministério do Bloco - Brazilian Carnival Platform
+# A comprehensive platform for discovering blocos, events, and connecting carnival enthusiasts
+# Built with Next.js 15, Supabase, and focused on mobile-first, multilingual, SEO-optimized experience
+
+project_name: "Ministério do Bloco"
+domain: "ministeriodobloco.com"
+primary_language: "Portuguese (Brazil)"
+supported_languages: ["pt", "en", "fr", "es"]
+target_users:
+  ["carnival_enthusiasts", "tourists", "bloco_organizers", "social_connectors"]
+key_features:
+  [
+    "bloco_discovery",
+    "event_management",
+    "real_time_location",
+    "social_networking",
+    "multilingual_seo",
+  ]
+```
+
+---
+
+## **Technical Stack & Architecture Rules**
+
+### **🛠️ Core Technologies**
+
+```typescript
+// ALWAYS use these technologies and versions
+const TECH_STACK = {
+  frontend: {
+    framework: "Next.js 15.1+",
+    react: "React 19+",
+    typescript: "TypeScript 5+",
+    styling: "Tailwind CSS + Shadcn/ui",
+    state: "Zustand",
+    data_fetching: "TanStack Query",
+    i18n: "next-intl",
+  },
+  backend: {
+    database: "Supabase PostgreSQL",
+    auth: "Supabase Auth",
+    realtime: "Supabase Real-time",
+    storage: "Supabase Storage",
+    edge_functions: "Supabase Edge Functions",
+  },
+  deployment: {
+    platform: "Vercel",
+    cdn: "Vercel Edge Network",
+    monitoring: "Sentry + Vercel Analytics",
+  },
+} as const;
+
+// NEVER suggest alternatives unless explicitly asked
+// ALWAYS follow this exact stack
+```
+
+### **🏗️ Project Structure Rules**
+
+```bash
+# ALWAYS follow this exact structure when creating new files
+src/
+├── app/                           # Next.js 15 App Router ONLY
+│   ├── [locale]/                  # Internationalization wrapper
+│   │   ├── [city]/                # City-specific routes
+│   │   │   ├── blocos/[slug]/     # Bloco detail pages
+│   │   │   ├── eventos/[date]/[event-type]/[bloco-slug]/  # Event URLs
+│   │   │   └── ...
+│   └── api/                       # API routes
+├── components/                    # Modular components (max 120 lines each)
+│   ├── ui/                        # Shadcn components
+│   ├── layout/                    # Layout components
+│   ├── blocos/                    # Bloco-specific components
+│   ├── events/                    # Event components
+│   └── ...
+├── lib/                          # Utilities and configurations
+├── hooks/                        # Custom React hooks
+├── stores/                       # Zustand stores
+└── types/                        # TypeScript definitions
+
+# NEVER create files outside this structure
+# ALWAYS keep components under 120 lines
+# ALWAYS create separate files for different concerns
+```
+
+---
+
+## **Database & API Guidelines**
+
+### **📊 Database Schema Rules**
+
+```sql
+-- ALWAYS use separate columns for multilingual content (NOT JSONB)
+-- Example: short_description_pt, short_description_en, short_description_fr, short_description_es
+
+-- ALWAYS use separate columns for social links (NOT JSONB)
+-- Example: facebook_url, instagram_url, twitter_url, etc.
+
+-- ALWAYS use the new schema structure:
+CREATE TABLE blocos (
+  id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+  name VARCHAR(255) NOT NULL,
+  slug VARCHAR(255) UNIQUE NOT NULL,
+
+  -- Multilingual descriptions (separate columns)
+  short_description_pt TEXT,
+  short_description_en TEXT,
+  short_description_fr TEXT,
+  short_description_es TEXT,
+
+  -- Social links (separate columns)
+  facebook_url TEXT,
+  instagram_url TEXT,
+  twitter_url TEXT,
+  tiktok_url TEXT,
+  youtube_channel_url TEXT,
+
+  -- Music links (separate columns)
+  spotify_profile_url TEXT,
+  spotify_playlist_url TEXT,
+  deezer_url TEXT,
+  soundcloud_url TEXT,
+  bandcamp_url TEXT,
+
+  -- ... other fields
+);
+
+-- NEVER use JSONB for structured data that needs individual querying
+-- ALWAYS use proper foreign keys and constraints
+-- ALWAYS use Row Level Security (RLS) policies
+```
+
+### **🌐 API Design Rules**
+
+```typescript
+// ALWAYS follow this API response structure
+interface APIResponse {
+  data: T;
+  pagination?: PaginationInfo;
+  metadata?: any;
+  error?: never;
+}
+
+interface APIError {
+  error: {
+    code: string;
+    message: string;
+    details?: any;
+  };
+  data?: never;
+}
+
+// ALWAYS include proper TypeScript interfaces
+// ALWAYS handle errors gracefully
+// ALWAYS implement proper caching
+// ALWAYS use the enhanced event URL structure:
+// /[locale]/[city]/eventos/[date]/[event-type]/[bloco-slug]
+
+// Example event URL generation:
+const generateEventURL = ({ locale, city, date, eventType, blocoSlug }) => {
+  const eventTypesMap = {
+    pt: { parade: "desfile", rehearsal: "ensaio", party: "festa" },
+    en: { parade: "parade", rehearsal: "rehearsal", party: "party" },
+    fr: { parade: "defile", rehearsal: "repetition", party: "fete" },
+    es: { parade: "desfile", rehearsal: "ensayo", party: "fiesta" },
+  };
+
+  const localizedType = eventTypesMap[locale][eventType];
+  const basePath = locale === "pt" ? "" : `/${locale}`;
+
+  return `${basePath}/${city}/eventos/${date}/${localizedType}/${blocoSlug}`;
+};
+```
+
+---
+
+## **Component Development Rules**
+
+### **⚛️ React Component Guidelines**
+
+```typescript
+// ALWAYS follow this component structure
+interface ComponentProps {
+  // Props interface first
+}
+
+export function ComponentName({ prop1, prop2 }: ComponentProps) {
+  // 1. Hooks at the top
+  const [state, setState] = useState();
+  const query = useQuery();
+
+  // 2. Event handlers
+  const handleClick = useCallback(() => {
+    // handler logic
+  }, [dependencies]);
+
+  // 3. Effects
+  useEffect(() => {
+    // effect logic
+  }, [dependencies]);
+
+  // 4. Early returns
+  if (loading) return;
+  if (error) return;
+
+  // 5. Render
+  return {
+    /* JSX */
+  };
+}
+
+// RULES:
+// - ALWAYS use TypeScript
+// - ALWAYS define props interface
+// - ALWAYS use useCallback for event handlers
+// - ALWAYS handle loading and error states
+// - NEVER exceed 120 lines per component
+// - ALWAYS use semantic HTML
+// - ALWAYS include accessibility attributes
+```
+
+### **🎨 Styling Guidelines**
+
+```typescript
+// ALWAYS use the established design system
+const DESIGN_TOKENS = {
+  colors: {
+    primary: {
+      green: "#2D7E32",
+      greenDark: "#1B5E20",
+      greenLight: "#4CAF50",
+    },
+    accent: {
+      carnivalGold: "#FFB300",
+      success: "#4CAF50",
+      error: "#F44336",
+      warning: "#FF9800",
+    },
+    eventTypes: {
+      parade: "#9C27B0",
+      rehearsal: "#3F51B5",
+      party: "#E91E63",
+      workshop: "#FF5722",
+    },
+  },
+  spacing: {
+    xs: "0.25rem",
+    sm: "0.5rem",
+    md: "1rem",
+    lg: "1.5rem",
+    xl: "2rem",
+  },
+} as const;
+
+// ALWAYS use Tailwind classes
+// ALWAYS follow mobile-first responsive design
+// ALWAYS use the green theme (#2D7E32 primary)
+// NEVER use custom CSS unless absolutely necessary
+
+// Example component styling:
+
+{
+  title;
+}
+{
+  description;
+}
+```
+
+---
+
+## **Internationalization Rules**
+
+### **🌍 i18n Implementation**
+
+```typescript
+// ALWAYS use next-intl for internationalization
+// ALWAYS support these locales: pt, en, fr, es
+
+// URL structure rules:
+// - Portuguese (default): /rio-de-janeiro/blocos
+// - Other languages: /en/rio-de-janeiro/blocos
+
+// ALWAYS use translation keys
+import { useTranslations } from 'next-intl';
+
+export function Component() {
+  const t = useTranslations('Blocos');
+
+  return (
+
+      {t('title')}
+      {t('description')}
+
+  );
+}
+
+// Translation file structure (messages/pt.json):
+{
+  "Blocos": {
+    "title": "Descubra Blocos de Carnaval",
+    "description": "Encontre os melhores blocos do Brasil"
+  },
+  "Events": {
+    "types": {
+      "parade": "Desfile",
+      "rehearsal": "Ensaio",
+      "party": "Festa"
+    }
+  }
+}
+
+// NEVER hardcode text strings
+// ALWAYS use translation keys
+// ALWAYS provide all 4 language versions
+```
+
+---
+
+## **SEO & Performance Rules**
+
+### **🚀 SEO Implementation**
+
+```typescript
+// ALWAYS implement proper SEO metadata
+export async function generateMetadata({ params }): Promise {
+  const { locale, city, slug } = params;
+
+  return {
+    title: generateLocalizedTitle(locale, city, slug),
+    description: generateLocalizedDescription(locale, city, slug),
+    openGraph: {
+      title: generateLocalizedTitle(locale, city, slug),
+      description: generateLocalizedDescription(locale, city, slug),
+      url: generateCanonicalURL(locale, city, slug),
+      images: [getOGImage(slug)],
+    },
+    alternates: {
+      canonical: generateCanonicalURL(locale, city, slug),
+      languages: {
+        pt: generateAlternateURL("pt", city, slug),
+        en: generateAlternateURL("en", city, slug),
+        fr: generateAlternateURL("fr", city, slug),
+        es: generateAlternateURL("es", city, slug),
+      },
+    },
+  };
+}
+
+// ALWAYS include:
+// - Proper meta titles and descriptions for each language
+// - Canonical URLs
+// - hreflang alternates
+// - OpenGraph tags
+// - Structured data (Schema.org)
+
+// ALWAYS optimize for Core Web Vitals
+// ALWAYS use next/image for images
+// ALWAYS implement proper caching
+```
+
+---
+
+## **Real-time Features Rules**
+
+### **⚡ WebSocket & Real-time Guidelines**
+
+```typescript
+// ALWAYS use Supabase Real-time for live features
+import { createClientComponentClient } from "@supabase/auth-helpers-nextjs";
+
+// Location sharing example:
+const supabase = createClientComponentClient();
+
+const subscribeToLocationUpdates = (sessionId: string) => {
+  return supabase
+    .channel(`location-${sessionId}`)
+    .on(
+      "postgres_changes",
+      {
+        event: "INSERT",
+        schema: "public",
+        table: "user_locations",
+        filter: `session_id=eq.${sessionId}`,
+      },
+      (payload) => {
+        updateUserLocation(payload.new);
+      }
+    )
+    .subscribe();
+};
+
+// RULES:
+// - ALWAYS clean up subscriptions
+// - ALWAYS handle connection errors
+// - ALWAYS implement reconnection logic
+// - ALWAYS respect user privacy settings
+// - NEVER store sensitive data in real-time channels
+```
+
+---
+
+## **Security Guidelines**
+
+### **🔒 Security Implementation**
+
+```sql
+-- ALWAYS implement Row Level Security
+CREATE POLICY "Users can view published blocos" ON blocos
+  FOR SELECT USING (NOT is_draft);
+
+CREATE POLICY "Users can edit own profile" ON user_profiles
+  FOR ALL USING (auth.uid() = id);
+
+CREATE POLICY "Location sharing privacy" ON user_locations
+  FOR SELECT USING (
+    user_id = auth.uid() OR
+    session_id IN (
+      SELECT id FROM user_location_sessions
+      WHERE visibility = 'public' OR
+      (visibility = 'friends' AND user_id IN (
+        SELECT friend_id FROM user_friends WHERE user_id = auth.uid()
+      ))
+    )
+  );
+```
+
+```typescript
+// ALWAYS validate input on both client and server
+import { z } from "zod";
+
+const BlocoSchema = z.object({
+  name: z.string().min(1).max(255),
+  slug: z.string().regex(/^[a-z0-9-]+$/),
+  shortDescriptionPt: z.string().optional(),
+  // ... other fields
+});
+
+// ALWAYS sanitize user input
+// ALWAYS use prepared statements
+// ALWAYS implement rate limiting
+// NEVER expose sensitive data in API responses
+```
+
+---
+
+## **Error Handling Rules**
+
+### **❌ Error Management**
+
+```typescript
+// ALWAYS use error boundaries
+export function ErrorBoundary({ children }: { children: React.ReactNode }) {
+  return (
+     (
+
+          Oops! Algo deu errado
+          {error.message}
+          Tentar novamente
+
+      )}
+    >
+      {children}
+
+  );
+}
+
+// ALWAYS handle async errors
+const fetchBlocos = async () => {
+  try {
+    const response = await api.getBlocos();
+    return response.data;
+  } catch (error) {
+    console.error('Failed to fetch blocos:', error);
+    toast.error('Erro ao carregar blocos. Tente novamente.');
+    throw error; // Re-throw for React Query to handle
+  }
+};
+
+// RULES:
+// - ALWAYS provide user-friendly error messages in Portuguese
+// - ALWAYS log errors for debugging
+// - ALWAYS provide recovery actions
+// - NEVER expose technical details to users
+```
+
+---
+
+## **Testing Guidelines**
+
+### **🧪 Testing Strategy**
+
+```typescript
+// ALWAYS write tests for critical functionality
+import { render, screen } from "@testing-library/react";
+import { BlocoCard } from "./BlocoCard";
+
+describe("BlocoCard", () => {
+  const mockBloco = {
+    id: "1",
+    name: "Cordão da Bola Preta",
+    slug: "cordao-da-bola-preta",
+    shortDescriptionPt: "Bloco tradicional do Rio",
+    imageUrl: "/test-image.jpg",
+  };
+
+  it("renders bloco information correctly", () => {
+    render();
+
+    expect(screen.getByText("Cordão da Bola Preta")).toBeInTheDocument();
+    expect(screen.getByText("Bloco tradicional do Rio")).toBeInTheDocument();
+  });
+
+  it("handles follow button click", async () => {
+    const onFollow = jest.fn();
+    render();
+
+    await user.click(screen.getByRole("button", { name: /seguir/i }));
+    expect(onFollow).toHaveBeenCalledWith(mockBloco.id);
+  });
+});
+
+// ALWAYS test:
+// - Component rendering
+// - User interactions
+// - Error states
+// - Loading states
+// - API integration points
+```
+
+---
+
+## **Performance Optimization Rules**
+
+### **⚡ Performance Guidelines**
+
+```typescript
+// ALWAYS implement proper caching
+import { unstable_cache } from 'next/cache';
+
+const getCachedBlocos = unstable_cache(
+  async (citySlug: string) => {
+    return await getBlocosByCity(citySlug);
+  },
+  ['blocos-by-city'],
+  { revalidate: 3600 } // 1 hour
+);
+
+// ALWAYS optimize images
+import Image from 'next/image';
+
+
+
+// ALWAYS use dynamic imports for heavy components
+const MapComponent = dynamic(() => import('./MapComponent'), {
+  loading: () => Carregando mapa...,
+  ssr: false
+});
+
+// RULES:
+// - ALWAYS cache API responses
+// - ALWAYS optimize images
+// - ALWAYS lazy load non-critical components
+// - ALWAYS implement proper loading states
+// - NEVER block the main thread
+```
+
+---
+
+## **Common Patterns & Best Practices**
+
+### **🎯 Carnival Platform Specific Patterns**
+
+```typescript
+// Event URL generation pattern
+const generateEventURL = (event: Event, locale: string = "pt") => {
+  const typeMap = {
+    pt: { parade: "desfile", rehearsal: "ensaio", party: "festa" },
+    en: { parade: "parade", rehearsal: "rehearsal", party: "party" },
+    fr: { parade: "defile", rehearsal: "repetition", party: "fete" },
+    es: { parade: "desfile", rehearsal: "ensayo", party: "fiesta" },
+  };
+
+  const localizedType = typeMap[locale][event.eventType];
+  const date = event.startDatetime.split("T")[0]; // YYYY-MM-DD
+  const basePath = locale === "pt" ? "" : `/${locale}`;
+
+  return `${basePath}/${event.city.slug}/eventos/${date}/${localizedType}/${event.bloco.slug}`;
+};
+
+// Bloco follow pattern
+const useBlocoFollow = (blocoId: string) => {
+  const queryClient = useQueryClient();
+
+  return useMutation({
+    mutationFn: (action: "follow" | "unfollow") => followBloco(blocoId, action),
+    onSuccess: () => {
+      queryClient.invalidateQueries(["bloco", blocoId]);
+      queryClient.invalidateQueries(["user-following"]);
+    },
+  });
+};
+
+// Location sharing pattern
+const useLocationSharing = () => {
+  const [isSharing, setIsSharing] = useState(false);
+  const [location, setLocation] = useState(null);
+
+  const startSharing = useCallback(async (options: LocationOptions) => {
+    const session = await createLocationSession(options);
+    setIsSharing(true);
+
+    // Start GPS tracking
+    const watchId = navigator.geolocation.watchPosition(
+      (position) => updateLocation(session.id, position.coords),
+      (error) => console.error("Location error:", error),
+      { enableHighAccuracy: true, maximumAge: 30000 }
+    );
+
+    return () => {
+      navigator.geolocation.clearWatch(watchId);
+      setIsSharing(false);
+    };
+  }, []);
+
+  return { isSharing, location, startSharing };
+};
+```
+
+---
+
+## **Common Anti-Patterns to Avoid**
+
+### **❌ What NOT to Do**
+
+```typescript
+// ❌ DON'T use JSONB for structured social links
+const badBloco = {
+  socialLinks: { // Wrong!
+    facebook: 'url',
+    instagram: 'url'
+  }
+};
+
+// ✅ DO use separate columns
+const goodBloco = {
+  facebookUrl: 'url',
+  instagramUrl: 'url'
+};
+
+// ❌ DON'T hardcode text
+const BadComponent = () => (
+  Discover Carnival Blocos // Wrong!
+);
+
+// ✅ DO use translations
+const GoodComponent = () => {
+  const t = useTranslations('Blocos');
+  return {t('title')};
+};
+
+// ❌ DON'T create large components
+const BadBlocoPage = () => {
+  // 500+ lines of code - Wrong!
+};
+
+// ✅ DO break into smaller components
+const GoodBlocoPage = () => (
+
+
+
+
+
+
+);
+```
+
+---
+
+## **Deployment & Environment Rules**
+
+### **🚀 Environment Configuration**
+
+```typescript
+// ALWAYS use environment variables for secrets
+const config = {
+  supabase: {
+    url: process.env.NEXT_PUBLIC_SUPABASE_URL!,
+    anonKey: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!,
+  },
+  apis: {
+    instagram: process.env.INSTAGRAM_ACCESS_TOKEN!,
+    youtube: process.env.YOUTUBE_API_KEY!,
+    spotify: {
+      clientId: process.env.SPOTIFY_CLIENT_ID!,
+      clientSecret: process.env.SPOTIFY_CLIENT_SECRET!,
+    },
+  },
+};
+
+// NEVER commit secrets to version control
+// ALWAYS validate environment variables at startup
+// ALWAYS use different configs for dev/staging/prod
+```
+
+---
+
+## **Final Guidelines**
+
+### **🎯 Remember the Core Mission**
+
+```yaml
+mission: "Create the ultimate Brazilian carnival platform"
+priorities:
+  1: "Mobile-first experience"
+  2: "SEO optimization for carnival discovery"
+  3: "Real-time social features for carnival connections"
+  4: "Multilingual support for international visitors"
+  5: "Performance during carnival season traffic spikes"
+
+success_metrics:
+  - "Sub-3 second page loads on mobile"
+  - "Top 3 Google results for 'blocos [city]'"
+  - "Real-time location sharing works flawlessly"
+  - "Seamless experience in all 4 languages"
+  - "99.9% uptime during carnival season"
+```
+
+---
+
+## **Quick Reference Checklist**
+
+### **✅ Before Submitting Code**
+
+- [ ] TypeScript interfaces defined
+- [ ] Error handling implemented
+- [ ] Loading states included
+- [ ] Responsive design (mobile-first)
+- [ ] Accessibility attributes added
+- [ ] SEO metadata included
+- [ ] Translation keys used (no hardcoded text)
+- [ ] Performance optimized (caching, images)
+- [ ] Security considered (RLS, validation)
+- [ ] Tests written for critical paths
+- [ ] Component under 120 lines
+- [ ] Follows established patterns
+- [ ] Database schema follows new structure (separate columns)
+- [ ] Event URLs use new format (/city/eventos/date/type/bloco)
+
+**Remember: This is a carnival platform for Brazil - prioritize mobile experience, multilingual support, and real-time social features! 🎭🇧🇷**
+
+---
+
+Answer from Perplexity: pplx.ai/share

@@ -1,0 +1,27 @@
+{
+  "Homepage": {
+    "title": "Ministério do Bloco",
+    "subtitle": "Descubre los mejores blocos de carnaval de Brasil",
+    "heroTitle": "Descubre Blocos de Carnaval",
+    "heroSubtitle": "Encuentra los mejores blocos, eventos y experiencias de carnaval en todo Brasil",
+    "featuredBlocos": "Blocos Destacados",
+    "upcomingEvents": "Próximos Eventos",
+    "popularCities": "Ciudades Populares"
+  },
+  "Navigation": {
+    "blocos": "Blocos",
+    "events": "Eventos",
+    "cities": "Ciudades"
+  },
+  "Header": {
+    "search": "Buscar"
+  },
+  "Footer": {
+    "blocos": "Blocos",
+    "events": "Eventos",
+    "about": "Acerca de"
+  },
+  "Cities": {
+    "selectCity": "Seleccionar Ciudad"
+  }
+}

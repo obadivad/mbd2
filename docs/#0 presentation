@@ -1,0 +1,54 @@
+## Executive Summary
+
+Ministério do Bloco is an innovative platform designed to enhance the Carnival experience in Brazil by providing a comprehensive resource about "blocos" (carnival street bands) for their enthusiasts. 
+
+The platform aims to centralize information about Carnival in Brazil, all its blocos and their events (regular events and parades), while facilitating discovery and social connections among Carnival-goers. 
+
+## 
+
+## Solution
+
+MinisterioB addresses these challenges by offering:
+
+1. Comprehensive bloco profiles with detailed information
+2. Event listings about performances (parades) and rehearsals
+3. User profiles with personalized event agendas and following blocos profile 
+4. Real-time location sharing during Carnival
+5. Blog articles, news, brand content and city guides
+6. Multi language: EN, PT, FR, ES. 
+7. notifications systems for updates about events. 
+8. Responsive design with mobile first focus 
+9. SEO is KEY in this project. 
+
+## Key Features
+
+### Bloco Profiles
+
+- Detailed descriptions of the blocos with comprehensive informations, short and long descriptions.
+- All social media links + music links link youtube, spotify, deezer, soundclound + direct videos or playlist
+- Embeding instagram profile, spotify, youtube videos.
+- Events associated
+- Music genre informations and bloco types
+- Users can follow blocos and receive update.
+
+### Event
+
+- Comprehensive list of events where blocos are goin to performed, or have performed
+- Integration with google calendar, ical etc. to save an event on the user’s device.  /sync their agenda with their account
+- Integration with Open Street map  for displaying events the map and getting directions opening the external google maps app
+
+### User Profiles
+
+- Personnalized profile
+- List of blocos followed
+- Personalized event agendas → users can save event.
+- Social connections with other users - people can connect to other users, create communities, and share they location (with low interval to not use all the battery)
+- In-app chat.
+
+### Real-time Location Sharing
+
+- Zenly-like feature for sharing location in real time during period of time to find friends during Carnival
+[zenlylike implementation](https://www.notion.so/13a750739a8a800faf2af93ce273716e?pvs=21)
+- Map exploration gamification -> similar to zenly feature to show how much people explore the map. a similar system could be done, counting the map exploration and the number of blocos attended
+
+Theme: Shadcn kit with green
